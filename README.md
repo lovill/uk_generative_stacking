@@ -20,5 +20,5 @@
 
 ### Get started
 
-![Alt Text](C:\Users\Lorenzo\Documents\GitHub\uk_generative_stacking\images\06\Gif-2019-47-08-23-47-16.gif)
+![Alt Text](https://github.com/lovill/uk_generative_stacking/blob/master/images/06a/Gif-2019-49-08-23-49-48.gif)
 
