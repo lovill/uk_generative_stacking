@@ -18,8 +18,14 @@
 
 - `model_base.3dm`: This is the Rhino file where the user interacacts with the model
 
-### Get started
+### Examples
 
-![Alt Text](https://github.com/lovill/uk_generative_stacking/blob/master/images/06a/Gif-2019-49-08-23-49-48.gif = 200x)
+<img src="https://github.com/lovill/uk_generative_stacking/blob/master/images/06/Gif-2019-47-08-23-47-16.gif" width="400">
 
-<img src="https://github.com/lovill/uk_generative_stacking/blob/master/images/06a/Gif-2019-49-08-23-49-48.gif" width="200">
+<img src="https://github.com/lovill/uk_generative_stacking/blob/master/images/02/Gif-2019-26-08-23-26-41.gif" width="400">
+
+<img src="https://github.com/lovill/uk_generative_stacking/blob/master/images/04/Gif-2019-33-08-23-33-48.gif" width="400">
+
+<img src="https://github.com/lovill/uk_generative_stacking/blob/master/images/04b/Gif-2019-33-08-23-33-53.gif" width="400">
+
+<img src="https://github.com/lovill/uk_generative_stacking/blob/master/images/05/Gif-2019-46-08-23-46-59.gif" width="400">
