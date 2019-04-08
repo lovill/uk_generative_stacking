@@ -16,7 +16,7 @@ import sys
 import os
 sc.doc = ghdoc
 
-print('not sure')
+print('not suraaae')
 
 curr_dir = os.getcwd()
 py_dir = os.path.join(curr_dir, "py")
