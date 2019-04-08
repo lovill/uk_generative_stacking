@@ -16,7 +16,12 @@
 
 - `generative_stacking_lib.py`: Collection of utilities for generative stacking.
 
-- `model_base.3dm`: This is the Rhino file where the user interacacts with the model
+- `UKCoD_Robotics Lab_LV.3dm.3dm`: This is the Rhino file where the user interacacts with the model
+
+### Get started
+Download `model.gh`, `UKCoD_Robotics Lab_LV.3dm` and the `py` directory and keep all items in a local directory of your choice. Run Rhino file, launch Grasshopper, load GH file and explore procedural stacking.
+
+Move/add/remove/rotate manually the first layer units (highlighted in red) and/or change all relevant input parameters as described in GH file. 
 
 ### Examples
 
