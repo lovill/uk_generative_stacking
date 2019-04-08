@@ -35,4 +35,5 @@ Move/add/remove/rotate manually the first layer units (highlighted in red) and/o
 
 <img src="https://github.com/lovill/uk_generative_stacking/blob/master/images/04b/Gif-2019-33-08-23-33-53.gif" width="400">
 
+Varying unit rotation
 <img src="https://github.com/lovill/uk_generative_stacking/blob/master/images/04c/Gif-2019-34-08-23-34-51.gif" width="400">
