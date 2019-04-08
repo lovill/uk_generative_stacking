@@ -20,5 +20,5 @@
 
 ### Get started
 
-![Alt Text](https://github.com/lovill/uk_generative_stacking/blob/master/images/06a/Gif-2019-49-08-23-49-48.gif)
+![Alt Text](https://github.com/lovill/uk_generative_stacking/blob/master/images/06a/Gif-2019-49-08-23-49-48.gif | width=100)
 
