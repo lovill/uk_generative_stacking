@@ -25,7 +25,7 @@ def debug_print(string_to_print):
     if debug_print_enabled:
         print(string_to_print)
 
-def geo_translate(geo, vec, f):
+def geo_translate(geo, vec, f=1):
     vec *= f
     xf = rg.Transform.Translation(vec)
     geo_id = sc.doc.Objects.Transform(geo, xf, False)
@@ -199,27 +199,42 @@ def search_placement_per_course(avail_geos, geos, vec = rs.AddPoint(1,0,0),
     placed_bricks_per_course = []
     all_tests_per_course = []
     overl_areas = []
+    test_avail_geos = []
+
+    # verify len of avail geos
+    if len(avail_geos) > 1:
     
-    for g1 in geos:
+        # for ig, g1 in enumerate(geos):
+        for ig, avail_geo in enumerate(avail_geos):
 
-        for g2 in geos:
-            
-            if g1 == g2:
-                continue
-            
-            else:
-                res = search_placement_between_two_units(g1, g2, 
-                            vec = get_geo_or(g1), 
-                            dir_vecs = dir_vecs,
-                            rotation_degs = rotation_degs, 
-                            _search_size = _search_size,
-                            vec_ampl = vec_ampl,
-                            rot_geo_degs = rot_geo_degs,
-                            placed_geos = placed_bricks_per_course)
+            # translate avail geo to g1 loc
+            g1 = geos[ig]
+            avail_geo = geo_translate(
+                    avail_geo, 
+                    rs.VectorCreate(rs.CurveAreaCentroid(g1)[0],
+                        rs.CurveAreaCentroid(avail_geo)[0]))
+
+            test_avail_geos.append(avail_geo)
+
+            for g2 in geos:
                 
-                if res[1]:
-                    placed_bricks_per_course.append(res[1])
-                    all_tests_per_course.extend(res[0])
-                    overl_areas.append(res[2])
+                # if g1 == g2:
+                if rs.CurveAreaCentroid(avail_geo)[0] == rs.CurveAreaCentroid(g2)[0]:
+                    continue
+                
+                else:
+                    res = search_placement_between_two_units(avail_geo, g2, 
+                                vec = get_geo_or(avail_geo), 
+                                dir_vecs = dir_vecs,
+                                rotation_degs = rotation_degs, 
+                                _search_size = _search_size,
+                                vec_ampl = vec_ampl,
+                                rot_geo_degs = rot_geo_degs,
+                                placed_geos = placed_bricks_per_course)
+                    
+                    if res[1]:
+                        placed_bricks_per_course.append(res[1])
+                        all_tests_per_course.extend(res[0])
+                        overl_areas.append(res[2])
 
-    return placed_bricks_per_course, len(placed_bricks_per_course), all_tests_per_course, overl_areas            
+    return placed_bricks_per_course, len(placed_bricks_per_course), all_tests_per_course, overl_areas, test_avail_geos            
