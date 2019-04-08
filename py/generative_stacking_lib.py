@@ -72,7 +72,7 @@ def calc_overlap_area_ratio(c1, c2):
 
 def test_conditions(geo_underneath, geo_to_test, 
     geo_to_test_against, placed_geos = [], boolean_check = False,
-    min_area_overlap1 = 15, min_area_overlap2 = 15):
+    min_area_overlap1 = 12.5, min_area_overlap2 = 12.5):
     
     # check for intersection with underneath geo unit
     overlap_area_r1 = calc_overlap_area_ratio(geo_to_test, geo_underneath)
