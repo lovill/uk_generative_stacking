@@ -32,7 +32,7 @@ direction_vectors = [1,-1]
 vector_amplitude = search_step
 search_size = 10
 latest_placed = geos
-avail_geos = geos_to_use
+avail_geos = geos_to_use    
 num_available_units = 10
 
 placed_units = []

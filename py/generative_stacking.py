@@ -16,14 +16,10 @@ import sys
 import os
 sc.doc = ghdoc
 
-print('test')
-
 curr_dir = os.getcwd()
 py_dir = os.path.join(curr_dir, "py")
-print('test')
 sys.path.append(py_dir)	
 import generative_stacking_lib as gs
-print('test')
 reload(gs)
 
 gs.generative_stacking_test()
@@ -32,21 +28,20 @@ direction_vectors = [1,-1]
 vector_amplitude = search_step
 search_size = 10
 latest_placed = geos
-avail_geos = geos_to_use
+avail_goes = geos_to_use
 num_available_units = 10
 
 placed_units = []
 overlapping_areas = []
 num_units_per_course = []
 all_tests = []
-a = []
 
 unit_counter = 0
 for i in range(max_num_courses):
     print("COURSE {}".format(i))
     print("testing...")
     
-    res = gs.search_placement_per_course(avail_geos, latest_placed, 
+    res = gs.search_placement_per_course(latest_placed, 
         dir_vecs = direction_vectors, 
         vec_ampl = vector_amplitude,
         rotation_degs = rotation_degrees, 
@@ -55,7 +50,6 @@ for i in range(max_num_courses):
     
     latest_placed = res[0]
     placed_units.extend(res[0])
-    del avail_geos[0:res[1]]
 
     if res[1] > 0:
         num_units_per_course.append(res[1])
@@ -66,8 +60,6 @@ for i in range(max_num_courses):
     all_tests.extend(res[2])
     
     overlapping_areas.extend(res[3])
-
-    a.append(res[4])
     
     unit_counter += res[1]
     print("placed {} units".format(res[1]))
