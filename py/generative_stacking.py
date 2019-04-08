@@ -16,8 +16,6 @@ import sys
 import os
 sc.doc = ghdoc
 
-print('not suraaae')
-
 curr_dir = os.getcwd()
 py_dir = os.path.join(curr_dir, "py")
 sys.path.append(py_dir)	
@@ -30,7 +28,7 @@ direction_vectors = [1,-1]
 vector_amplitude = search_step
 search_size = 10
 latest_placed = geos
-avail_goes = geos_to_use
+avail_geos = geos_to_use
 num_available_units = 10
 
 placed_units = []
@@ -52,7 +50,7 @@ for i in range(max_num_courses):
     
     latest_placed = res[0]
     placed_units.extend(res[0])
-    avail_geos = avail_geos.pop(:res[1])
+    del avail_geos[0:3]
 
     if res[1] > 0:
         num_units_per_course.append(res[1])
