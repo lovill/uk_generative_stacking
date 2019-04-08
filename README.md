@@ -1,4 +1,4 @@
-# Generative Brick Stacking
+# Generative Shape Stacking
 **_Flexible generative modeling for procedural stacking of arbitrary shapes_**
 
 ### Prerequisites
