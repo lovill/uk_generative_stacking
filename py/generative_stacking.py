@@ -50,7 +50,7 @@ for i in range(max_num_courses):
     
     latest_placed = res[0]
     placed_units.extend(res[0])
-    del avail_geos[0:3]
+    # del avail_geos[0:3]
 
     if res[1] > 0:
         num_units_per_course.append(res[1])
