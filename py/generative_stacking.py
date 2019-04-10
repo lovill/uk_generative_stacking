@@ -16,6 +16,8 @@ import sys
 import os
 sc.doc = ghdoc
 
+print("new branch")
+
 curr_dir = os.getcwd()
 py_dir = os.path.join(curr_dir, "py")
 sys.path.append(py_dir)	
