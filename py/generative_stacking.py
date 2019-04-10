@@ -16,10 +16,6 @@ import sys
 import os
 sc.doc = ghdoc
 
-print("new branch")
-print("second commit on this new branch")
-print("make new commit for surrogate branch")
-
 curr_dir = os.getcwd()
 py_dir = os.path.join(curr_dir, "py")
 sys.path.append(py_dir)	
