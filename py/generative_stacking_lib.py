@@ -32,6 +32,7 @@ def geo_translate(geo, vec, f):
     return geo_id
 
 def ccx_points(c1, c2):
+
     c1 = rs.coercecurve(c1)
     c2 = rs.coercecurve(c2)
     # Calculate the intersection
@@ -85,14 +86,18 @@ def test_conditions(geo_underneath, geo_to_test,
                 
             
         # check for intersection (overlap on top of other lower course)
+
         if ccx_points(geo_to_test, geo_to_test_against):
             
             # check for intersection of already placed bricks
+            # use surrogate version of unit to take into account...
+            # ...robot endeffector size
+            surrogate_geo =  non_uniform_scale(geo_to_test, scale_x = 1)
             int_with_placed_geos = False
             for pg in placed_geos:
 
                 if pg:
-                    if ccx_points(geo_to_test, pg):
+                    if ccx_points(surrogate_geo, pg):
                         
                         int_with_placed_geos = True
                         break
@@ -135,8 +140,6 @@ def non_uniform_scale(geo, scale_x = 1, scale_y = 1, scale_z = 1):
     vx = rs.VectorRotate(vy, 90, rs.AddPoint(0,0,1))
     geo_cp = rs.CurveAreaCentroid(geo)[0]
 
-    print(vy)
-    print(vx)
     geo_plane = rg.Plane(geo_cp, vx, vy)
 
     xf = rg.Transform.Scale(geo_plane, 
@@ -146,7 +149,7 @@ def non_uniform_scale(geo, scale_x = 1, scale_y = 1, scale_z = 1):
                                     
     scaled_geo = sc.doc.Objects.Transform(geo, xf, False)
 
-    return scaled_geo, vx, vy
+    return scaled_geo
 
 def search_placement_between_two_units(c1, c2, 
     vec = rs.AddPoint(1,0,0), dir_vecs = [1], 
