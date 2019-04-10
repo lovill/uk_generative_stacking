@@ -128,6 +128,25 @@ def get_geo_or(geo):
     
     return or_vec
 
+def non_uniform_scale(geo, scale_x = 1, scale_y = 1, scale_z = 1):
+
+    vy = get_geo_or(geo)
+    vx = vy
+    vx = rs.VectorRotate(vy, 90, rs.AddPoint(0,0,1))
+    geo_cp = rs.CurveAreaCentroid(geo)[0]
+
+    print(vy)
+    print(vx)
+    geo_plane = rg.Plane(geo_cp, vx, vy)
+
+    xf = rg.Transform.Scale(geo_plane, 
+                                    scale_x,
+                                    scale_y,
+                                    scale_z)
+                                    
+    scaled_geo = sc.doc.Objects.Transform(geo, xf, False)
+
+    return scaled_geo, vx, vy
 
 def search_placement_between_two_units(c1, c2, 
     vec = rs.AddPoint(1,0,0), dir_vecs = [1], 
