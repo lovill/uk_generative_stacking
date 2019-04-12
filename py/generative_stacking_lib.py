@@ -178,8 +178,8 @@ def search_placement_between_two_units(c1, c2,
     for rot_vec in rotation_degs:
         vec = rs.VectorRotate(vec, rot_vec, rs.AddPoint(0,0,1))   
         
-        for dir in dir_vecs:
-            vec *= dir
+        for dir_vec in dir_vecs:
+            vec *= dir_vec
             
             for si in range(_search_size):
             
