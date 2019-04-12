@@ -13,7 +13,7 @@ import scriptcontext as sc
 import Rhino
 import Rhino.Geometry as rg
 
-debug_print_enabled = False
+debug_print_enabled = True
 
 def generative_stacking_test():
     print("~*~*~*~*~*~*~")
@@ -170,47 +170,50 @@ def search_placement_between_two_units(c1, c2,
     geo_to_translate = c1
     geo_original_underneath = c1
     
-    for rot_geo_deg in rot_geo_degs:
-        geo_to_translate = rs.RotateObject(geo_to_translate, 
-                            rs.CurveAreaCentroid(geo_to_translate)[0], 
-                            rot_geo_deg)
+    # for rot_geo_deg in rot_geo_degs:
+    #     geo_to_translate = rs.RotateObject(geo_to_translate, 
+    #                         rs.CurveAreaCentroid(geo_to_translate)[0], 
+    #                         rot_geo_deg)
 
-        for rot_vec in rotation_degs:
-            vec = rs.VectorRotate(vec, rot_vec, rs.AddPoint(0,0,1))   
+    for rot_vec in rotation_degs:
+        vec = rs.VectorRotate(vec, rot_vec, rs.AddPoint(0,0,1))   
+        
+        for dir in dir_vecs:
+            vec *= dir
             
-            for dir in dir_vecs:
-                vec *= dir
+            for si in range(_search_size):
+            
+                translated_geo = geo_translate(geo_to_translate, 
+                    vec, vec_ampl)
                 
-                for si in range(_search_size):
+                # CONDITIONS TO MEET FOR BRICK PLACEMENT
+                conditions_met = test_conditions(geo_original_underneath, 
+                    translated_geo, c2, placed_geos)
                 
-                    translated_geo = geo_translate(geo_to_translate, 
-                        vec, vec_ampl)
-                    
-                    # CONDITIONS TO MEET FOR BRICK PLACEMENT
-                    conditions_met = test_conditions(geo_original_underneath, 
-                        translated_geo, c2, placed_geos)
-                    
-                    if conditions_met == "terminate search":
-                        break
-                    
-                    search_iters.append(translated_geo)
-                    if conditions_met:
-                        placed_brick = translated_geo
-                        found_placed_brick = True
-                        overl_area1 = calc_overlap_area_ratio(
-                                        translated_geo, 
-                                        geo_original_underneath
-                                        )
-                        overl_area2 = calc_overlap_area_ratio(
-                                        translated_geo, 
-                                         c2
-                                        )
-                        tot_overl_area = overl_area1 + overl_area2
-                        return search_iters, placed_brick, tot_overl_area    
-                    
-                    else:
-                        geo_to_translate = translated_geo
-                        continue
+                search_iters.append(translated_geo)
+                debug_print("search_iter: {}".format(translated_geo))
+
+                if conditions_met == "terminate search":
+                    break
+                
+                
+                if conditions_met:
+                    placed_brick = translated_geo
+                    found_placed_brick = True
+                    overl_area1 = calc_overlap_area_ratio(
+                                    translated_geo, 
+                                    geo_original_underneath
+                                    )
+                    overl_area2 = calc_overlap_area_ratio(
+                                    translated_geo, 
+                                     c2
+                                    )
+                    tot_overl_area = overl_area1 + overl_area2
+                    return search_iters, placed_brick, tot_overl_area    
+                
+                else:
+                    geo_to_translate = translated_geo
+                    continue
                         
     return search_iters, placed_brick, tot_overl_area
 
@@ -222,7 +225,8 @@ def search_placement_per_course(geos, vec = rs.AddPoint(1,0,0),
     all_tests_per_course = []
     overl_areas = []
     
-    for g1 in geos:
+    for ig, g1 in enumerate(geos):
+        debug_print("unit: {}".format(ig))
 
         for g2 in geos:
             
@@ -241,7 +245,8 @@ def search_placement_per_course(geos, vec = rs.AddPoint(1,0,0),
                 
                 if res[1]:
                     placed_bricks_per_course.append(res[1])
-                    all_tests_per_course.extend(res[0])
                     overl_areas.append(res[2])
+
+                all_tests_per_course.extend(res[0])    
 
     return placed_bricks_per_course, len(placed_bricks_per_course), all_tests_per_course, overl_areas            

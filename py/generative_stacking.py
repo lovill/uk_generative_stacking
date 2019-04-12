@@ -50,6 +50,7 @@ for i in range(max_num_courses):
     
     latest_placed = res[0]
     placed_units.extend(res[0])
+    all_tests.extend(res[2])
 
     if res[1] > 0:
         num_units_per_course.append(res[1])
@@ -57,7 +58,7 @@ for i in range(max_num_courses):
         print("don't know how to place more units, interrupting...")
         break
     
-    all_tests.extend(res[2])
+
     
     overlapping_areas.extend(res[3])
     
