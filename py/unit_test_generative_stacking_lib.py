@@ -167,53 +167,38 @@ def search_placement_between_two_units(c1, c2,
     placed_brick = None
     tot_overl_area = None
     found_placed_brick = False
-    geo_to_translate = c1
+    
     geo_original_underneath = c1
     
-    # for rot_geo_deg in rot_geo_degs:
-    #     geo_to_translate = rs.RotateObject(geo_to_translate, 
-    #                         rs.CurveAreaCentroid(geo_to_translate)[0], 
-    #                         rot_geo_deg)
-
+    
+    # search orientation
     for rot_vec in rotation_degs:
-        vec = rs.VectorRotate(vec, rot_vec, rs.AddPoint(0,0,1))   
-        
-        for dir in dir_vecs:
-            vec *= dir
-            
-            for si in range(_search_size):
-            
-                translated_geo = geo_translate(geo_to_translate, 
-                    vec, vec_ampl)
-                
-                # CONDITIONS TO MEET FOR BRICK PLACEMENT
-                conditions_met = test_conditions(geo_original_underneath, 
-                    translated_geo, c2, placed_geos)
-                
-                search_iters.append(translated_geo)
-                debug_print("search_iter: {}".format(translated_geo))
+        print(rot_vec)
+        vec = rs.VectorRotate(vec, rot_vec, rs.AddPoint(0,0,1))
 
-                if conditions_met == "terminate search":
-                    break
-                
-                
-                if conditions_met:
-                    placed_brick = translated_geo
-                    found_placed_brick = True
-                    overl_area1 = calc_overlap_area_ratio(
-                                    translated_geo, 
-                                    geo_original_underneath
-                                    )
-                    overl_area2 = calc_overlap_area_ratio(
-                                    translated_geo, 
-                                     c2
-                                    )
-                    tot_overl_area = overl_area1 + overl_area2
-                    return search_iters, placed_brick, tot_overl_area    
-                
-                else:
-                    geo_to_translate = translated_geo
-                    continue
+        # flip direction
+        for dir_vec in dir_vecs:
+            print("dir_vec: {}".format(dir_vec))
+            vec *= dir_vec
+
+            # attempts
+            geo_to_translate = c1
+            for si in range(_search_size):
+                print("attempt {}".format(si))
+
+                # transformation
+                translated_geo = geo_translate(
+                    geo_to_translate,
+                    vec,
+                    vec_ampl)
+
+
+                search_iters.append(translated_geo)
+
+                geo_to_translate = translated_geo
+
+
+        print("")
                         
     return search_iters, placed_brick, tot_overl_area
 
